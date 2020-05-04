@@ -88,7 +88,7 @@ class LinkedList {
             }
         }
 
-        void iterateOnList() {
+        void print() {
             this->iterator = this->head;
             while (this->iterator != NULL) {
                 std::cout << this->iterator->value << std::endl;
@@ -98,6 +98,16 @@ class LinkedList {
 
         int getSize() {
             return this->size;
+        }
+
+        ~LinkedList() {
+            this->iterator = this->tail;
+            while (this->iterator->previous != NULL) {
+                this->iterator = this->iterator->previous;
+                delete this->iterator->next;
+            }
+            delete this->iterator;
+            this->size = 0;
         }
 };
 
@@ -109,13 +119,13 @@ int main() {
     mList.insert(100, 2);
 
     std::cout << "\n List size " <<  mList.getSize() << std::endl;
-    mList.iterateOnList();
+    mList.print();
 
     mList.popBack();
     mList.popFront();
 
     std::cout << "\n List size "  << mList.getSize() << std::endl;
-    mList.iterateOnList();
+    mList.print();
 
     return 0;
 }
